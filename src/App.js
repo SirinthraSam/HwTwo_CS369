@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { 
+    Route,
+    createBrowserRouter,
+    createRoutesFromElements,
+    RouterProvider,
+} from "react-router-dom"; 
+   // import layout
+import MainLayout from "./layout/MainLayout"; 
+import ProductLayout from "./layout/ProductLayout"; 
+   // import pages
+import Home from "./page/HomePage"; 
+import About from "./page/AboutPage"; 
+import ProductsPage from "./page/ProductPage"; 
+import ProductDetailPage from "./page/ProductDetailPage"; 
+   
+import "./App.css"
+// import Logo from "./img/logo.png"
+// import NotFound from "./NotFound";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="beak" element={<ProductLayout />} >
+                <Route index element={<ProductsPage />} />
+                <Route path=":id" element={<ProductDetailPage />} />
+            </Route>
+            <Route path="products" element={<ProductLayout />} >
+                <Route index element={<ProductsPage />} />
+                <Route path=":id" element={<ProductDetailPage />} />
+            </Route>
+            <Route path="dinner" element={<ProductsPage/>} />  
+         
+        </Route>
+    )    
+);
 
+const App = () => <RouterProvider router={router} />; 
 export default App;
+
